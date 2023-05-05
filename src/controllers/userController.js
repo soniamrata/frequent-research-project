@@ -1,9 +1,11 @@
+//---------------------- Importing Models  ----------------------//
 const userModel = require("../models/userModel.js")
 const {isvalidEmail,isvalidName,isvalidEmpty,validateCandidateAge} = require("../validators/validators")
 
+// --------------- create user function----------------------------------------//
+
 const createUser = async function (req, res) {
     try {
-     
       const data = req.body
       if (Object.keys(data) == 0) {
         return res.status(400).send({ status: false, message: "No input provided" });
@@ -33,7 +35,7 @@ const createUser = async function (req, res) {
       if(!["Male","Female","Others"].includes(gender)){ return res.status(400).send({ status: false, message: "invalid gender" })}
 
      if(!dateOfBirth) {return res.status(400).send({status:false, message: "dateOfBirth is missing"})}
-     if(validateCandidateAge(dateOfBirth)) 
+     if(!validateCandidateAge(dateOfBirth)) 
     
       {return res.status(400).send({status:false, message:"Candidate must be at least 14 years old to register"})}
   
@@ -47,7 +49,8 @@ const createUser = async function (req, res) {
     }
   }
 
-// 
+// ---------------get user details ----------------------------//
+
   const getUser = async function(req,res){
     try{
     const user = await userModel.find()
