@@ -53,7 +53,7 @@ const createUser = async function (req, res) {
 
   const getUser = async function(req,res){
     try{
-    const user = await userModel.find()
+    const user = await userModel.find().sort({createdAt:-1})
     return res.status(400).send({status:true, message:"successful", data: user})
     }
     catch(err){
